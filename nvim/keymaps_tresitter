@@ -1,0 +1,17 @@
+aa - Params outer
+ia - Params inner
+af - Fun outer
+if - Fun inner
+ac - class outer
+ic - class inner
+]m goto next fun
+]] goto next class
+[m goto prev fun
+[[ goto prev class
+
+leader a - swap param inner
+leader A - swap param outer
+
+Check :h nvim-treesitter-commands for a list of all available commands.
+
+
