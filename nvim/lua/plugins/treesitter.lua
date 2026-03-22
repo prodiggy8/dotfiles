@@ -1,106 +1,61 @@
--- Highlight, edit, and navigate code
 return {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    dependencies = {
-        'nvim-treesitter/nvim-treesitter-textobjects',
+    { -- Highlight, edit, and navigate code
+        'nvim-treesitter/nvim-treesitter',
+        lazy = false,
+        build = ':TSUpdate',
+        branch = 'main',
+        -- [[ Configure Treesitter ]] See `:help nvim-treesitter-intro`
+        config = function()
+            local parsers = {
+                'lua',
+                'python',
+                'javascript',
+                'typescript',
+                'vimdoc',
+                'vim',
+                'regex',
+                'terraform',
+                'sql',
+                'dockerfile',
+                'toml',
+                'json',
+                'gitignore',
+                'yaml',
+                'make',
+                'markdown',
+                'markdown_inline',
+                'bash',
+                'tsx',
+                'jsx',
+                'css',
+                'html',
+                'c',
+                'cpp',
+                'rust',
+                'asm',
+            },
+            require('nvim-treesitter').install(parsers)
+            vim.api.nvim_create_autocmd('FileType', {
+                callback = function(args)
+                    local buf, filetype = args.buf, args.match
+
+                    local language = vim.treesitter.language.get_lang(filetype)
+                    if not language then return end
+
+                    -- check if parser exists and load it
+                    if not vim.treesitter.language.add(language) then return end
+                    -- enables syntax highlighting and other treesitter features
+                    vim.treesitter.start(buf, language)
+
+                    -- enables treesitter based folds
+                    -- for more info on folds see `:help folds`
+                    -- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+                    -- vim.wo.foldmethod = 'expr'
+
+                    -- enables treesitter based indentation
+                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end,
+            })
+        end,
     },
-    config = function()
-        require('nvim-treesitter').setup {
-        -- Add languages to be installed here that you want installed for treesitter
-        ensure_installed = {
-            'lua',
-            'python',
-            'javascript',
-            'typescript',
-            'vimdoc',
-            'vim',
-            'regex',
-            'terraform',
-            'sql',
-            'dockerfile',
-            'toml',
-            'json',
-            'gitignore',
-            'yaml',
-            'make',
-            'markdown',
-            'markdown_inline',
-            'bash',
-            'tsx',
-            'jsx',
-            'css',
-            'html',
-            'c',
-            'cpp',
-            'rust',
-            'asm',
-        },
-
-        -- Autoinstall languages that are not installed
-        auto_install = true,
-
-        highlight = { enable = true },
-        indent = { enable = true },
-        incremental_selection = {
-            enable = true,
-            keymaps = {
-                init_selection = 'gnn',
-                node_incremental = 'grn',
-                scope_incremental = 'grc',
-                node_decremental = 'grm',
-            },
-        },
-        textobjects = {
-            select = {
-                enable = true,
-                lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-                keymaps = {
-                    -- You can use the capture groups defined in textobjects.scm
-                    ['aa'] = '@parameter.outer',
-                    ['ia'] = '@parameter.inner',
-                    ['af'] = '@function.outer',
-                    ['if'] = '@function.inner',
-                    ['ac'] = '@class.outer',
-                    ['ic'] = '@class.inner',
-                },
-            },
-            move = {
-                enable = true,
-                set_jumps = true, -- whether to set jumps in the jumplist
-                goto_next_start = {
-                    [']m'] = '@function.outer',
-                    [']]'] = '@class.outer',
-                },
-                goto_next_end = {
-                    [']M'] = '@function.outer',
-                    [']['] = '@class.outer',
-                },
-                goto_previous_start = {
-                    ['[m'] = '@function.outer',
-                    ['[['] = '@class.outer',
-                },
-                goto_previous_end = {
-                    ['[M'] = '@function.outer',
-                    ['[]'] = '@class.outer',
-                },
-            },
-            swap = {
-                enable = true,
-                swap_next = {
-                    ['<leader>a'] = '@parameter.inner',
-                },
-                swap_previous = {
-                    ['<leader>A'] = '@parameter.inner',
-                },
-            },
-        },
-    }
-
-    -- Register additional file extensions
-    vim.filetype.add { extension = { tf = 'terraform' } }
-    vim.filetype.add { extension = { tfvars = 'terraform' } }
-    vim.filetype.add { extension = { pipeline = 'groovy' } }
-    vim.filetype.add { extension = { multibranch = 'groovy' } }
-  end,
 }
