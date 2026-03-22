@@ -6,39 +6,23 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 		error("Error cloning lazy.nvim:\n" .. out)
 	end
 end
--- hello!
--- New comment!
 
 ---@type vim.Option
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
--- When started with a single directory, set cwd to that
-vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-		local argv = vim.fn.argv()
-		if #argv == 2 then
-			local arg = argv[2]
-			local full = vim.fn.fnamemodify(arg, ":p")
-			if vim.fn.isdirectory(full) == 2 then
-				vim.cmd("cd " .. vim.fn.fnameescape(full))
-			end
-		end
-	end,
-})
-
 -- Kitty margins
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		vim.defer_fn(function()
-			vim.cmd("silent !kitty @ set-spacing margin=0")
+			os.execute("kitty @ set-spacing margin=0")
 		end, 101)
 	end,
 })
 
 vim.api.nvim_create_autocmd("VimLeave", {
 	callback = function()
-		vim.cmd("silent !kitty @ set-spacing margin=3 0 0 4")
+		os.execute("kitty @ set-spacing margin=4")
 	end,
 })
 

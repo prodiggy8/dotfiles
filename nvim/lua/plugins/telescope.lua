@@ -43,6 +43,7 @@ return {
 
 			-- See `:help telescope.builtin`
 			local builtin = require("telescope.builtin")
+			local extensions = require("telescope").extensions
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 			vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[S]earch [F]iles" })
@@ -52,6 +53,7 @@ return {
 			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 			vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "[S]earch [R]esume" }) -- Resume the last picker
 			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+			vim.keymap.set("n", "<leader>fp", extensions.projects.projects, { desc = "[F]ind projects" })
 
 			-- This runs on LSP attach per buffer (see main LSP attach function in 'neovim/nvim-lspconfig' config for more info,
 			-- it is better explained there). This allows easily switching between pickers if you prefer using something else!
