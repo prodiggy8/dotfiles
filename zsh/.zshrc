@@ -192,3 +192,7 @@ eval "$(zoxide init zsh --cmd cd)"
 
 # dust
 export PATH="/home/ggrc/.local/bin:$PATH"
+
+# claude
+alias cc="claude"
+alias cc-safe="claude --readonly"
