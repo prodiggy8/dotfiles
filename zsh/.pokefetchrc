@@ -15,6 +15,7 @@ POKEMON_LIST=(
   dragonair
   lucario
   chandelure
+  jigglypuff
   "mewtwo --mega-y"
 )
 

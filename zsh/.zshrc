@@ -187,12 +187,21 @@ alias unfuck-swww="systemctl restart --user swww-daemon.service"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 alias vi="nvim"
 
-# zoxide
-eval "$(zoxide init zsh --cmd cd)"
-
 # dust
 export PATH="/home/ggrc/.local/bin:$PATH"
 
 # claude
 alias cc="claude"
 alias cc-safe="claude --readonly"
+
+# webcam
+alias killcam="sudo modprobe -r uvcvideo"
+alias unkillcam="sudo modprobe uvcvideo"
+
+# sioyek
+sioyek() { flatpak run com.github.ahrm.sioyek "$@" }
+
+# zoxide (needs to be at the end of the file)
+eval "$(zoxide init zsh --cmd cd)"
+
+
