@@ -106,35 +106,9 @@ source $ZSH/oh-my-zsh.sh
 # multi-word aliases
 alias win="cd /mnt/windows/Users/gusta"
 
-cd() {
-    case "$1" in
-        w|win|windows)
-            builtin cd /mnt/windows/Users/gusta
-            ;;
-        *)
-            builtin cd "$@"
-            ;;
-    esac
-}
-
 mkcd() {
     mkdir -p "$1" && cd "$1"
 }
-
-swd() {
-    case "$1" in
-        start)
-            systemctl start --user swww-daemon.service
-            ;;
-        stop)
-            systemctl stop --user swww-daemon.service
-            ;;
-        *)
-            echo "$1 is not an option"
-            ;;
-    esac
-}
-
 
 #git() {
 #    case "$1" in
@@ -181,7 +155,7 @@ alias pokefetch="source ~/.pokefetchrc"
 export SWWW_TRANSITION_STEP=60
 export SWWW_TRANSITION_FPS=60
 export SWWW_TRANSITION="grow"
-alias unfuck-swww="systemctl restart --user swww-daemon.service"
+alias killswww="systemctl restart --user swww-daemon.service"
 
 # nvim
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
@@ -204,4 +178,5 @@ sioyek() { flatpak run com.github.ahrm.sioyek "$@" }
 # zoxide (needs to be at the end of the file)
 eval "$(zoxide init zsh --cmd cd)"
 
-
+# CoJudge CLI
+alias cojudge='node /home/ggrc/projects/cojudge/bin/cojudge'
