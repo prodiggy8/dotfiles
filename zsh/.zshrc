@@ -138,6 +138,7 @@ alias l.='exa -a | egrep "^\."'
 # other
 alias ttyc="tty-clock -c -B -C 6"
 alias ncspot="flatpak run io.github.hrkfdn.ncspot"
+alias music='tmux new-session "flatpak run io.github.hrkfdn.ncspot" \; split-window -h "cava"'
 alias env_pagarme='source ~/projects/sanii/pagarme_sanii/env/bin/activate'
 
 export PATH=$PATH:/home/ggrc/.spicetify
@@ -160,6 +161,7 @@ alias killswww="systemctl restart --user swww-daemon.service"
 # nvim
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 alias vi="nvim"
+alias viconfig="nvim ~/dotfiles/nvim/.config/nvim/"
 
 # dust
 export PATH="/home/ggrc/.local/bin:$PATH"
@@ -175,8 +177,10 @@ alias unkillcam="sudo modprobe uvcvideo"
 # sioyek
 sioyek() { flatpak run com.github.ahrm.sioyek "$@" }
 
+# CoJudge CLI
+alias cojudge='node /home/ggrc/scratch/cojudge/bin/cojudge'
+
 # zoxide (needs to be at the end of the file)
 eval "$(zoxide init zsh --cmd cd)"
 
-# CoJudge CLI
-alias cojudge='node /home/ggrc/projects/cojudge/bin/cojudge'
+
